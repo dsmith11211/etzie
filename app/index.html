@@ -50,8 +50,9 @@
                 </div>
                 <div class="container-fluid"> <!-- This will contain the thumbnal grid of the returned items -->
                   <ul class="row">
-                      
-                      <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4"><img/></li>
+                      <!-- ko foreach: etsyCollection -->
+                        <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4"><img data-bind="attr:{ src: image_url }"/></li>
+                      <!-- /ko -->
                   </ul>
                 </div>
             </div>

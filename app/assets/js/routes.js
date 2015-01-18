@@ -4,7 +4,7 @@ var ApiRouter = (function() {
 	function urlParser(url) {
 		var apiKey = '79jkljqj8ntbrx55nvg1uhb1';
 
-		return url + '?api_key=' + apiKey
+		return url + '?includes=Images:1&api_key=' + apiKey
 
 	}
 

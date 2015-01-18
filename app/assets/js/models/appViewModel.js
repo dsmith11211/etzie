@@ -35,6 +35,7 @@ define(['jquery',
               });
 
           self.etsyCollection.push.apply(self.etsyCollection,resultCollection);// Push reults into observableArray for UI use
+          console.log(results);
           console.log(self.etsyCollection());
         });
     }
@@ -52,4 +53,5 @@ define(['jquery',
     self.title = item.title;
     self.price = item.price;
     self.url = item.url;
+    self.image_url = item.Images[0].url_170x135; //TODO: Array of all image sizes?
   }

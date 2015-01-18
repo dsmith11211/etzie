@@ -10831,21 +10831,35 @@ button.close {
 body {
   padding-bottom: 20px;
 }
+/* line 5, ../scss/_app.scss */
+body ul {
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+}
+/* line 9, ../scss/_app.scss */
+body ul li {
+  list-style: none;
+  margin-bottom: 25px;
+}
+/* line 13, ../scss/_app.scss */
+body ul li img {
+  cursor: pointer;
+}
 
 /* some nice centered entries */
-/* line 8, ../scss/_app.scss */
+/* line 19, ../scss/_app.scss */
 .entry-home {
   padding: 5px;
   border-radius: 4px;
   text-align: center;
   font-weight: bold;
 }
-/* line 14, ../scss/_app.scss */
+/* line 25, ../scss/_app.scss */
 .entry-home i {
   padding-left: 10px;
 }
 
-/* line 19, ../scss/_app.scss */
+/* line 30, ../scss/_app.scss */
 .search_container {
   text-align: center;
 }
