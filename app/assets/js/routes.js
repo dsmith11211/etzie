@@ -9,7 +9,7 @@ var ApiRouter = (function() {
 	}
 
 	var RouteList = {
-		active: 'https://openapi.etsy.com/v2/listings/active',
+		active: 'https://openapi.etsy.com/v2/listings/active.js',
 
 	}
 

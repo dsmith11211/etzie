@@ -12,4 +12,9 @@ define(['jquery',
 
 		ko.applyBindings(UI);
 
+	$("#menu-toggle").click(function(e) {
+	    e.preventDefault();
+	    $("#wrapper").toggleClass("toggled");
+	});
+
 });
