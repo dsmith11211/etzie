@@ -40,7 +40,7 @@
                         <a data-bind="click: latestItems" href="#">
                             Latest
                         </a>
-                        <a href="#">
+                        <a data-bind="click: loadLocalCopies" href="#">
                             My favorites
                         </a>
                     </li>
@@ -65,7 +65,10 @@
 
     </div>
 
-    <script>window.knockoutBootstrapDebug = true;</script>
+    <script>
+      window.knockoutBootstrapDebug = true;  
+      var FavKeys = {}; //Global key collection
+    </script>
     <script data-main="assets/js/config" src="bower_components/requirejs/require.js"></script>
 
     <script id="product_template" type="text/html">
@@ -77,7 +80,7 @@
                   <div class="cta_icons">
                     <div class="cta_icons_wrap">
                       <i data-bind="click: navToItem" class="fa fa-search"></i>
-                      <i class="fa fa-heart"></i>
+                      <i data-bind="click: $root.selectedItem,css:{ selected_fav: favorite }" class="fa fa-heart"></i>
                     </div>
                   </div>
                 </div>

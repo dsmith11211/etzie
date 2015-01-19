@@ -7,7 +7,7 @@ define(['jquery',
 	'jquery.bootstrap',
 	'../../assets/js/routes.js'
 ], function($, ko, AppViewModel) {
-
+	
 	var UI = new AppViewModel();
 
 		ko.applyBindings(UI);

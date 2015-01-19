@@ -10947,13 +10947,17 @@ body .thumbnail {
 .media__body .cta_icons .cta_icons_wrap .fa:hover {
   opacity: 1;
 }
+/* line 102, ../scss/_app.scss */
+.media__body .cta_icons .cta_icons_wrap .selected_fav {
+  color: #F2665D;
+}
 
-/* line 106, ../scss/_app.scss */
+/* line 109, ../scss/_app.scss */
 .media__body:hover {
   opacity: 1;
 }
 
-/* line 108, ../scss/_app.scss */
+/* line 111, ../scss/_app.scss */
 .media__body:before {
   border-bottom: none;
   border-top: none;
@@ -10961,7 +10965,7 @@ body .thumbnail {
   right: 2em;
 }
 
-/* line 115, ../scss/_app.scss */
+/* line 118, ../scss/_app.scss */
 .media__body:after {
   border-left: none;
   border-right: none;
@@ -10969,7 +10973,7 @@ body .thumbnail {
   top: 2em;
 }
 
-/* line 122, ../scss/_app.scss */
+/* line 125, ../scss/_app.scss */
 .media__body:hover:after,
 .media__body:hover:before {
   -webkit-transform: scale(1);
