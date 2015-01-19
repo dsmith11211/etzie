@@ -55,7 +55,7 @@ define(['jquery',
       self.lookForFavorites(true);
     }
 
-    self.initialLoad = function(element,offset) { //API call for model load
+    self.initialLoad = function(element,event,offset) { //API call for model load
       var params = {};
       offset ? params.offset = offset : null;     
       self.isLoading(true);
@@ -68,21 +68,24 @@ define(['jquery',
       )
     }
 
-    self.searchItems = function(element,offset) { //API call for search query
+    self.searchItems = function(element,event,offset) { //API call for search query
       var query = self.searchQuery(),
-          params = {keywords: query};
+          params = {keywords: query},
+          dirty = self.checkForQueryChange(query);
       offset ? params.offset = offset : null;     
       self.isLoading(true);
-      self.currentRoute('search');
+      (self.currentRoute() == 'search' && !offset && dirty) ? self.currentRoute.valueHasMutated() : self.currentRoute('search');
+       //Need to mutate manually to compensate for new searches if we are already in the search route(multiple searches e.g) TODO: ugh..Hacky^^
       ApiRouter.ApiAccess(
         'search',
         'GET',
         self.resultsCallback,
         params
       )
+      QueryCache = query;
     }
 
-    self.latestItems = function(element,offset) { //API call for latest query
+    self.latestItems = function(element,event,offset) { //API call for latest query
       var params = {};
       offset ? params.offset = offset : null;
       self.isLoading(true);
@@ -108,6 +111,7 @@ define(['jquery',
         self.etsyCollection.removeAll();
         self.etsyCollection.push.apply(self.etsyCollection, resultCollection); // Push results into observableArray for UI use
         self.isLoading(false);
+        if($(window).scrollTop() !== 0){$(window).scrollTop(0);} //Scroll back to top when switching routes
       }
       self.dirtyFlag(false); //Reset Route change dirty flag
       WindowIsScrolling = false;
@@ -148,6 +152,10 @@ define(['jquery',
           FavKeys[localStorage.key(i)] = true;
         }
       }
+    }
+
+    self.checkForQueryChange = function(query) {
+      return query !== QueryCache ? true : false;
     }
 
 // Action functions End ********************************************

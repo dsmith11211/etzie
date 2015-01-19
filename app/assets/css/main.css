@@ -10863,26 +10863,32 @@ body .thumbnail {
   overflow: hidden;
   padding: 0px;
 }
+/* line 32, ../scss/_app.scss */
+body .navbar {
+  position: absolute !important;
+  top: 0px;
+  width: 940px;
+}
 
-/* line 34, ../scss/_app.scss */
+/* line 39, ../scss/_app.scss */
 .brand_text {
   color: #222;
   font-size: 22px;
   font-family: "Cabin Condensed", sans-serif;
 }
 
-/* line 40, ../scss/_app.scss */
+/* line 45, ../scss/_app.scss */
 .loader_div {
   height: 100%;
   font-size: 25px;
 }
 
-/* line 45, ../scss/_app.scss */
+/* line 50, ../scss/_app.scss */
 .no_pl {
   padding: 0;
 }
 
-/* line 49, ../scss/_app.scss */
+/* line 54, ../scss/_app.scss */
 .product_box_wrapper {
   position: relative;
   height: 18em;
@@ -10890,40 +10896,40 @@ body .thumbnail {
   border: 4px white;
   border-radius: 2px;
 }
-/* line 55, ../scss/_app.scss */
+/* line 60, ../scss/_app.scss */
 .product_box_wrapper img {
   cursor: pointer;
 }
-/* line 58, ../scss/_app.scss */
+/* line 63, ../scss/_app.scss */
 .product_box_wrapper .no_overflow {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   cursor: pointer;
 }
-/* line 64, ../scss/_app.scss */
+/* line 69, ../scss/_app.scss */
 .product_box_wrapper .bottom_margin {
   margin-bottom: 10px;
 }
 
-/* line 70, ../scss/_app.scss */
+/* line 74, ../scss/_app.scss */
 .search_container {
   text-align: center;
 }
 
-/* line 74, ../scss/_app.scss */
+/* line 78, ../scss/_app.scss */
 .media {
   display: inline-block;
   position: relative;
   vertical-align: top;
 }
 
-/* line 80, ../scss/_app.scss */
+/* line 84, ../scss/_app.scss */
 .media__image {
   display: block;
 }
 
-/* line 82, ../scss/_app.scss */
+/* line 86, ../scss/_app.scss */
 .media__body {
   background: rgba(0, 0, 0, 0.7);
   bottom: 0;
@@ -10940,38 +10946,38 @@ body .thumbnail {
   -webkit-transition: 0.6s;
   transition: 0.6s;
 }
-/* line 97, ../scss/_app.scss */
+/* line 101, ../scss/_app.scss */
 .media__body .cta_icons {
   font-size: 4em;
   height: 100%;
   position: relative;
 }
-/* line 101, ../scss/_app.scss */
+/* line 105, ../scss/_app.scss */
 .media__body .cta_icons .cta_icons_wrap {
   padding: 0.5em 0;
 }
-/* line 103, ../scss/_app.scss */
+/* line 107, ../scss/_app.scss */
 .media__body .cta_icons .cta_icons_wrap .fa {
   opacity: 0.7;
   cursor: pointer;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
-/* line 108, ../scss/_app.scss */
+/* line 112, ../scss/_app.scss */
 .media__body .cta_icons .cta_icons_wrap .fa:hover {
   opacity: 1;
 }
-/* line 112, ../scss/_app.scss */
+/* line 116, ../scss/_app.scss */
 .media__body .cta_icons .cta_icons_wrap .selected_fav {
   color: #F2665D;
 }
 
-/* line 119, ../scss/_app.scss */
+/* line 123, ../scss/_app.scss */
 .media__body:hover {
   opacity: 1;
 }
 
-/* line 121, ../scss/_app.scss */
+/* line 125, ../scss/_app.scss */
 .media__body:before {
   border-bottom: none;
   border-top: none;
@@ -10979,7 +10985,7 @@ body .thumbnail {
   right: 2em;
 }
 
-/* line 128, ../scss/_app.scss */
+/* line 132, ../scss/_app.scss */
 .media__body:after {
   border-left: none;
   border-right: none;
@@ -10987,7 +10993,7 @@ body .thumbnail {
   top: 2em;
 }
 
-/* line 135, ../scss/_app.scss */
+/* line 139, ../scss/_app.scss */
 .media__body:hover:after,
 .media__body:hover:before {
   -webkit-transform: scale(1);

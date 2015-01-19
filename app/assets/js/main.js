@@ -17,14 +17,14 @@ define(['jquery',
 	    $("#wrapper").toggleClass("toggled");
 	});
 
-	$(window).scroll(function() {  //Function to load more data when user scrolls to bottom of screen
+	$(window).scroll(function(e) {  //Function to load more data when user scrolls to bottom of screen
 	    if($(window).scrollTop() == $(document).height() - $(window).height()) {
 	    	if(!WindowIsScrolling) {
 	    		WindowIsScrolling = true;
 		    	var route = UI.currentRoute(),
 		    		action = ApiRouter.RouteList[route](UI).action;
 
-		    	action(null,ApiOffset); //Run appropriate method for loading
+		    	action(null,e,ApiOffset); //Run appropriate method for loading
 		    	console.log('Window load');
 	    	}
 	    }

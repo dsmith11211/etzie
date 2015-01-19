@@ -45,6 +45,10 @@
 
 /* Sidebar Styles */
 
+.active_section_link {
+    color: #fff !important;
+}
+
 .sidebar-nav {
     position: absolute;
     top: 0;
@@ -84,6 +88,7 @@
 
 .sidebar-nav > .sidebar-brand a {
     color: #999999;
+    cursor: pointer;
 }
 
 .sidebar-nav > .sidebar-brand a:hover {

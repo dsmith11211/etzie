@@ -29,6 +29,11 @@ body {
     	overflow: hidden;
     	padding: 0px;
     }
+    .navbar {
+        position: absolute !important;
+        top: 0px;
+        width: 940px;
+    }
 }
 
 .brand_text {
@@ -65,7 +70,6 @@ body {
 		margin-bottom: 10px;
 	}
 }
-
 
 .search_container {
 	text-align: center;
