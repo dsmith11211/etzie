@@ -10,8 +10,8 @@ var ApiRouter = (function() {
 
 	var RouteList = {
 		active: 'https://openapi.etsy.com/v2/listings/active.js',
-		trending: 'https://openapi.etsy.com/v2/listings/trending.js'
-
+		trending: 'https://openapi.etsy.com/v2/listings/trending.js',
+		addFavorite: 'https://openapi.etsy.com/v2/users/:user_id/favorites/listings/:listing_id' //Needs oAuth =(
 	}
 
 	function ApiAccess(target, method, callback, params) {

@@ -25,17 +25,21 @@
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">
                     <li class="sidebar-brand">
-                        <a href="#">
-                            Etzie Schmetzie
-                        </a>
+                        Etzie Schmetzie
                     </li>
                     <div class="search_container">
-                      <a href="#">
-                        <input id="etsy-terms" size="16">
-                        <button class="btn btn-default">Search</button>
-                      </a>
+                        <form data-bind="submit: searchItems">
+                          <input data-bind="value: searchQuery" id="etsy-terms" size="16">
+                          <button type="submit" class="btn btn-default">Search</button>
+                        </form>
                     </div>
                     <li class="sidebar-brand">
+                        <a data-bind="click: initialLoad" href="#">
+                            Trending
+                        </a>
+                        <a data-bind="click: latestItems" href="#">
+                            Latest
+                        </a>
                         <a href="#">
                             My favorites
                         </a>
@@ -49,7 +53,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><i class="fa fa-reorder"></i></a>
                         </div>
                     </div>
                 </div>
@@ -61,22 +65,6 @@
 
     </div>
 
-    
-    <!-- <div class="container">
-      <div id="home">
-        <div class="row">
-          <div class="col-md-6 col-md-offset-3">
-            <h1>etzie running!</h1>
-          </div>
-        </div>
-        <div class="row">
-          <p data-bind="css: { 'alert-success': status()==='active', 'alert-warning': status()!=='active'}" class="col-md-6 col-md-offset-3 entry-home">Knockout data binding:<span data-bind="text: status" class="status">Inactive</span></p>
-        </div>
-        <div class="row">
-          <p class="col-md-6 col-md-offset-3 entry-home alert-success"><span><a href="http://fortawesome.github.io/Font-Awesome">Font Awesome icons </a>are available</span><i class="fa fa-check-square-o"></i></p>
-        </div>
-      </div>
-    </div> -->
     <script>window.knockoutBootstrapDebug = true;</script>
     <script data-main="assets/js/config" src="bower_components/requirejs/require.js"></script>
 
@@ -88,7 +76,7 @@
                  <div class="media__body" data-bind="attr:{ title: title }">
                   <div class="cta_icons">
                     <div class="cta_icons_wrap">
-                      <i class="fa fa-search"></i>
+                      <i data-bind="click: navToItem" class="fa fa-search"></i>
                       <i class="fa fa-heart"></i>
                     </div>
                   </div>

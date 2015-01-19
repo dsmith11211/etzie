@@ -23,34 +23,47 @@ define(['jquery',
 
     self.etsyCollection = ko.observableArray();
     self.selectedItem = ko.observable();
+    self.searchQuery = ko.observable();
 
     self.initialLoad = function() {
       ApiRouter.ApiAccess(
         'trending',
         'GET',
-        function(data){
-          var results = data.results,
-              resultCollection = ko.utils.arrayMap(results,function(item) { // Map results to temp array
-                return new EtsyItem(item);
-              });
-
-          self.etsyCollection.push.apply(self.etsyCollection,resultCollection);// Push reults into observableArray for UI use
-          console.log(results);
-          console.log(self.etsyCollection());
-        });
+        self.resultsCallback
+        )
     }
 
     self.afterInit = function() {
-      // $('.no_overflow').dotdotdot({ //attempt for smarter text truncation with jquery dotdotdot plugin WIP
-      //     after: "a.readmore",
-      //     watch: "window",
-      //     height: "2em",
-      //     wrap: 'letter',
-      //     callback: function(isTruncated, orgContent) {
-      //       console.log(isTruncated,orgContent);
-      //     }
-      // })
       // console.log('model loaded');
+    }
+
+    self.searchItems = function() {
+      var query = self.searchQuery();
+      ApiRouter.ApiAccess(
+        'active',
+        'GET',
+        self.resultsCallback,
+        {keywords: query}
+        )
+    }
+
+    self.latestItems = function() {
+      ApiRouter.ApiAccess(
+        'active',
+        'GET',
+        self.resultsCallback
+        )
+    }
+
+    self.resultsCallback = function(data) {
+      var results = data.results,
+          resultCollection = ko.utils.arrayMap(results,function(item) { // Map results to temp array
+            return new EtsyItem(item);
+          });
+      self.etsyCollection.removeAll();
+      self.etsyCollection.push.apply(self.etsyCollection,resultCollection);// Push reults into observableArray for UI use
+      console.log(self.etsyCollection());
+      console.log(data.results);
     }
 
     self.initialLoad(); //Entry Point
