@@ -21,11 +21,16 @@ define(['jquery',
     //End Config
 
 
+//Model Variables *********************************
 
     self.etsyCollection = ko.observableArray();
     self.selectedItem = ko.observable();
     self.searchQuery = ko.observable();
     self.isLoading = ko.observable(true);
+    self.dirtyFlag = ko.observable(false);
+    self.currentRoute = ko.observable('');
+
+//End Model Variables *****************************
 
 // Subscriptions ***********************************
 
@@ -37,64 +42,78 @@ define(['jquery',
       self.storeLocalCopy(val.category_id,ko.toJSON(val),val); // When value is set (heart clicked), convert it to JSON and store locally
     })
 
+    self.currentRoute.subscribe(function(val) {
+      console.log(val);
+      self.dirtyFlag(true); //If route has changed, set dirty flag
+    })
+
 // End Subscriptions *******************************
 
 
 //Action Functions **********************************
-    self.initialLoad = function() {
-      self.isLoading(true);
-      ApiRouter.ApiAccess(
-        'trending',
-        'GET',
-        self.resultsCallback
-      )
-    }
-
-
-
-    self.afterInit = function() {
-      // console.log('model loaded');
+    self.afterInit = function() { //After model is initialized, build favorites hash
       self.lookForFavorites(true);
     }
 
-    self.searchItems = function() {
+    self.initialLoad = function(element,offset) { //API call for model load
+      var params = {};
+      offset ? params.offset = offset : null;     
       self.isLoading(true);
-      var query = self.searchQuery();
+      self.currentRoute('initial');
       ApiRouter.ApiAccess(
-        'active',
+        'initial',
         'GET',
-        self.resultsCallback, {
-          keywords: query
-        }
+        self.resultsCallback,
+        params
       )
     }
 
-    self.latestItems = function() {
+    self.searchItems = function(element,offset) { //API call for search query
+      var query = self.searchQuery(),
+          params = {keywords: query};
+      offset ? params.offset = offset : null;     
       self.isLoading(true);
+      self.currentRoute('search');
       ApiRouter.ApiAccess(
-        'active',
+        'search',
         'GET',
-        self.resultsCallback
+        self.resultsCallback,
+        params
       )
     }
 
-    self.resultsCallback = function(data) {
+    self.latestItems = function(element,offset) { //API call for latest query
+      var params = {};
+      offset ? params.offset = offset : null;
+      self.isLoading(true);
+      self.currentRoute('latest');
+      ApiRouter.ApiAccess(
+        'latest',
+        'GET',
+        self.resultsCallback,
+        params
+      )
+    }
+
+    self.resultsCallback = function(data) { //Generic callback for any API calls. Takes returned results and changes underlying array that updates UI
       var results = data.results,
         resultCollection = ko.utils.arrayMap(results, function(item) { // Map results to temp array
           return new EtsyItem(item,ko);
         });
         ApiOffset = ApiOffset + data.results.length;
-      if(self.etsyCollection.length <= ApiOffset){
-        self.etsyCollection.push.apply(self.etsyCollection, resultCollection); // Push reults into observableArray for UI use
+      if(!self.dirtyFlag()){ // If we are in the same route, add more data
+        self.etsyCollection.push.apply(self.etsyCollection, resultCollection); // Push results into observableArray for UI use
         self.isLoading(false);
-      } else {
+      } else { // If the route has changed, clear the collection before adding the new entries
         self.etsyCollection.removeAll();
-        self.etsyCollection.push.apply(self.etsyCollection, resultCollection); // Push reults into observableArray for UI use
+        self.etsyCollection.push.apply(self.etsyCollection, resultCollection); // Push results into observableArray for UI use
         self.isLoading(false);
       }
+      self.dirtyFlag(false); //Reset Route change dirty flag
+      WindowIsScrolling = false;
     }
 
-    self.storeLocalCopy = function(id,json_item,item) {
+    self.storeLocalCopy = function(id,json_item,item) { //Store a favorited item in local storage
       if (!localStorage.getItem(id)) { //If item doesn't exist in collection, add it
         localStorage.setItem(id, json_item);
         item.favorite(true);
@@ -102,21 +121,21 @@ define(['jquery',
       } 
     }
 
-    self.loadLocalCopies = function() {
+    self.loadLocalCopies = function() { //Load favorites from local storage
+      self.currentRoute('favorites');
       var returnArray = self.lookForFavorites();
       self.resultsCallback(returnArray); //Run this data through the generic callback
     }
 
-    self.removeLocalCopy = function(id,item) {
+    self.removeLocalCopy = function(id,item) { //Remove favorite from local storage
       item.favorite(false); //Update UI favorite icon
       self.etsyCollection.remove(item); //Update UI: Remove item from collection
       delete FavKeys[id]; //Update key map
       localStorage.removeItem(id); //Update local storage
-      console.log('favorite removed');
     }
 
     self.lookForFavorites = function(update) {
-      if (!update) {
+      if (!update) { //Load favorites
         var returnArray = {
           results: []
         };
@@ -125,7 +144,7 @@ define(['jquery',
         }
         return returnArray;
       } else {
-        for (var i = 0; i < localStorage.length; i++) {
+        for (var i = 0; i < localStorage.length; i++) { // Populate favorites hash
           FavKeys[localStorage.key(i)] = true;
         }
       }
@@ -139,7 +158,7 @@ define(['jquery',
 
 });
 
-var EtsyItem = function(item,ko) {
+var EtsyItem = function(item,ko) { //Constructor for each Item Card
   var self = this;
   self.category_id = item.category_id;
   self.description = item.description;

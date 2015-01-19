@@ -73,7 +73,7 @@
       window.knockoutBootstrapDebug = true;  
       var FavKeys = {},//Global key collection
           ApiOffset = 0,
-          CurrentRoute;
+          WindowIsScrolling = false; //Hacky way to prevent double queueing of bottm scoll page loads
     </script>
     <script data-main="assets/js/config" src="bower_components/requirejs/require.js"></script>
 

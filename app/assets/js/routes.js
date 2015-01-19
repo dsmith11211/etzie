@@ -3,23 +3,46 @@ var ApiRouter = (function() {
 
 	function urlParser(url) {
 		var apiKey = '79jkljqj8ntbrx55nvg1uhb1';
-
 		return url + '?includes=Images:1&limit=24&api_key=' + apiKey
-
 	}
 
-	var RouteList = {
-		active: 'https://openapi.etsy.com/v2/listings/active.js',
-		trending: 'https://openapi.etsy.com/v2/listings/trending.js',
-		addFavorite: 'https://openapi.etsy.com/v2/users/:user_id/favorites/listings/:listing_id' //Needs oAuth =(
-	}
+	var RouteList = (function() {
+		function initial(UI) {
+			return {
+				url: 'https://openapi.etsy.com/v2/listings/trending.js',
+				action: UI ? UI.initialLoad : null
+			}
+		}
+		function search(UI) {
+			return {
+				url: 'https://openapi.etsy.com/v2/listings/active.js',
+				action: UI ? UI.searchItems : null
+			}
+		}
+		function latest(UI) {
+			return {
+				url: 'https://openapi.etsy.com/v2/listings/active.js',
+				action: UI ? UI.latestItems : null
+			}
+		}
+		function addFavorite(UI) {
+			return {
+				url: 'https://openapi.etsy.com/v2/users/:user_id/favorites/listings/:listing_id'
+			}
+		} //Needs oAuth =(
+		return {
+			initial : initial,
+			search : search,
+			latest : latest
+		}	
+
+	})();
 
 	function ApiAccess(target, method, callback, params) {
 		if (target && method) {
-			CurrentRoute = target;
 			$.ajax({
 				type: method,
-				url: urlParser(RouteList[target]),
+				url: urlParser(ApiRouter.RouteList[target]().url),
 				data: params,
 				dataType: "jsonp",
 				success: callback,
@@ -34,7 +57,8 @@ var ApiRouter = (function() {
 	}
 
 	return {
-		ApiAccess: ApiAccess
+		ApiAccess: ApiAccess,
+		RouteList: RouteList
 	}
 
 }());
