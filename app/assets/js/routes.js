@@ -4,7 +4,7 @@ var ApiRouter = (function() {
 	function urlParser(url) {
 		var apiKey = '79jkljqj8ntbrx55nvg1uhb1';
 
-		return url + '?includes=Images:1&api_key=' + apiKey
+		return url + '?includes=Images:1&limit=24&api_key=' + apiKey
 
 	}
 
@@ -16,6 +16,7 @@ var ApiRouter = (function() {
 
 	function ApiAccess(target, method, callback, params) {
 		if (target && method) {
+			CurrentRoute = target;
 			$.ajax({
 				type: method,
 				url: urlParser(RouteList[target]),

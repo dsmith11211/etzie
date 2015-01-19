@@ -3,7 +3,7 @@
 /* global define:true*/
 define(['jquery',
   'knockout',
-  'knockout.validation',
+  'knockout.validation'
 ], function($, ko) {
 
   return function() {
@@ -25,6 +25,7 @@ define(['jquery',
     self.etsyCollection = ko.observableArray();
     self.selectedItem = ko.observable();
     self.searchQuery = ko.observable();
+    self.isLoading = ko.observable(true);
 
 // Subscriptions ***********************************
 
@@ -41,6 +42,7 @@ define(['jquery',
 
 //Action Functions **********************************
     self.initialLoad = function() {
+      self.isLoading(true);
       ApiRouter.ApiAccess(
         'trending',
         'GET',
@@ -56,6 +58,7 @@ define(['jquery',
     }
 
     self.searchItems = function() {
+      self.isLoading(true);
       var query = self.searchQuery();
       ApiRouter.ApiAccess(
         'active',
@@ -67,6 +70,7 @@ define(['jquery',
     }
 
     self.latestItems = function() {
+      self.isLoading(true);
       ApiRouter.ApiAccess(
         'active',
         'GET',
@@ -79,10 +83,15 @@ define(['jquery',
         resultCollection = ko.utils.arrayMap(results, function(item) { // Map results to temp array
           return new EtsyItem(item,ko);
         });
-      self.etsyCollection.removeAll();
-      self.etsyCollection.push.apply(self.etsyCollection, resultCollection); // Push reults into observableArray for UI use
-      console.log(self.etsyCollection());
-      console.log(data.results);
+        ApiOffset = ApiOffset + data.results.length;
+      if(self.etsyCollection.length <= ApiOffset){
+        self.etsyCollection.push.apply(self.etsyCollection, resultCollection); // Push reults into observableArray for UI use
+        self.isLoading(false);
+      } else {
+        self.etsyCollection.removeAll();
+        self.etsyCollection.push.apply(self.etsyCollection, resultCollection); // Push reults into observableArray for UI use
+        self.isLoading(false);
+      }
     }
 
     self.storeLocalCopy = function(id,json_item,item) {
@@ -90,9 +99,7 @@ define(['jquery',
         localStorage.setItem(id, json_item);
         item.favorite(true);
         FavKeys[id] = true;
-      } else {
-        alert('Item already a favorite!');
-      }
+      } 
     }
 
     self.loadLocalCopies = function() {
@@ -127,6 +134,7 @@ define(['jquery',
 // Action functions End ********************************************
 
     self.initialLoad(); //Entry Point
+
   };
 
 });

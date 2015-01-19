@@ -14,6 +14,13 @@ body {
     ul li img {
         cursor: pointer;
     }
+    .search_container {
+    	width: 100%;
+    	margin-bottom: 20px;
+    	input {
+	    	padding: 5px;
+    	}
+    }
     .thumbnail { //Overwrite
     	// padding: 22px 4px 4px 4px;
     	position: relative;
@@ -24,16 +31,19 @@ body {
     }
 }
 
-/* some nice centered entries */
-.entry-home {
-    padding: 5px;
-    border-radius: 4px;
-    text-align: center;
-    font-weight: bold;
+.brand_text {
+	color: #222;
+	font-size: 22px;
+	font-family: "Cabin Condensed", sans-serif;
+}
 
-    i {
-        padding-left: 10px;
-    }
+.loader_div {
+	height:100%;
+	font-size: 25px;
+}
+
+.no_pl {
+	padding: 0;
 }
 
 .product_box_wrapper {
