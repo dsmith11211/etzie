@@ -10,6 +10,7 @@ var ApiRouter = (function() {
 
 	var RouteList = {
 		active: 'https://openapi.etsy.com/v2/listings/active.js',
+		trending: 'https://openapi.etsy.com/v2/listings/trending.js'
 
 	}
 

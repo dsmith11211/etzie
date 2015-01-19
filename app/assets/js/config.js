@@ -6,6 +6,7 @@ require.config({
     'jquery': '../../bower_components/jquery/dist/jquery',
     'knockout.validation': '../../bower_components/knockout.validation/Dist/knockout.validation',
     'jquery.bootstrap': '../../bower_components/bootstrap-sass/assets/javascripts/bootstrap'
+    // 'jquery.dotdotdot': '../../bower_components/jQuery.dotdotdot/src/js/jquery.dotdotdot' dotdotdot plugin(not working ATM)
   },
   shim: {
     'jquery.bootstrap': {

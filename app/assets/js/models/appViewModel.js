@@ -3,7 +3,7 @@
 /* global define:true*/
 define(['jquery',
     'knockout',
-    'knockout.validation'
+    'knockout.validation',
     ], function ($, ko) {
   return function () {
     var self = this;
@@ -26,7 +26,7 @@ define(['jquery',
 
     self.initialLoad = function() {
       ApiRouter.ApiAccess(
-        'active',
+        'trending',
         'GET',
         function(data){
           var results = data.results,
@@ -38,6 +38,19 @@ define(['jquery',
           console.log(results);
           console.log(self.etsyCollection());
         });
+    }
+
+    self.afterInit = function() {
+      // $('.no_overflow').dotdotdot({ //attempt for smarter text truncation with jquery dotdotdot plugin WIP
+      //     after: "a.readmore",
+      //     watch: "window",
+      //     height: "2em",
+      //     wrap: 'letter',
+      //     callback: function(isTruncated, orgContent) {
+      //       console.log(isTruncated,orgContent);
+      //     }
+      // })
+      // console.log('model loaded');
     }
 
     self.initialLoad(); //Entry Point
@@ -53,5 +66,13 @@ define(['jquery',
     self.title = item.title;
     self.price = item.price;
     self.url = item.url;
-    self.image_url = item.Images[0].url_170x135; //TODO: Array of all image sizes?
+    self.image_url = item.Images[0].url_570xN; //TODO: Array of all image sizes?
+
+    self.navToItem = function() {
+      window.open(self.url,'_blank');
+    }
+
+    self.previewItem = function(e) {
+      console.log('preview placeholder');
+    }
   }

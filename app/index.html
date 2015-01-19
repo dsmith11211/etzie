@@ -35,6 +35,11 @@
                         <button class="btn btn-default">Search</button>
                       </a>
                     </div>
+                    <li class="sidebar-brand">
+                        <a href="#">
+                            My favorites
+                        </a>
+                    </li>
                 </ul>
             </div>
             <!-- /#sidebar-wrapper -->
@@ -48,12 +53,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid"> <!-- This will contain the thumbnal grid of the returned items -->
-                  <ul class="row">
-                      <!-- ko foreach: etsyCollection -->
-                        <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4"><img data-bind="attr:{ src: image_url }"/></li>
-                      <!-- /ko -->
-                  </ul>
+                <div class="row text-center"> <!-- This will contain the thumbnal grid template of the returned items -->
+                  <div data-bind="template: { name:'product_template', afterRender: afterInit }"></div> <!-- Bound to template found on line #79 below -->
                 </div>
             </div>
             <!-- /#page-content-wrapper -->
@@ -78,5 +79,24 @@
     </div> -->
     <script>window.knockoutBootstrapDebug = true;</script>
     <script data-main="assets/js/config" src="bower_components/requirejs/require.js"></script>
+
+    <script id="product_template" type="text/html">
+      <!-- ko foreach: etsyCollection -->
+         <div class="col-md-3 col-sm-6 hero-feature product_box_wrapper">
+             <div class="thumbnail">
+                 <img class="media__image" data-bind="click: navToItem, attr:{ src: image_url }"/>
+                 <div class="media__body" data-bind="attr:{ title: title }">
+                  <div class="cta_icons">
+                    <div class="cta_icons_wrap">
+                      <i class="fa fa-search"></i>
+                      <i class="fa fa-heart"></i>
+                    </div>
+                  </div>
+                </div>
+             </div>
+         </div>
+       <!-- /ko -->
+    </script>
+
   </body>
 </html>
