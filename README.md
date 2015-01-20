@@ -15,7 +15,7 @@ Includes the following tools and libraries:
 
 ##Libraries
 
-* [Knockout.js](http://knockoutjs.com/) - * my tool of choice for easy two-way data-binding *
+* [Knockout.js](http://knockoutjs.com/)
 * [jQuery](jquery.com)
 * [Twitter Bootstrap](http://getbootstrap.com/)
 * [Google Fonts](https://www.google.com/fonts)
