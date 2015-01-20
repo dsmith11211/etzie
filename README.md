@@ -19,7 +19,7 @@ Includes the following tools and libraries:
 * [jQuery](jquery.com)
 * [Twitter Bootstrap](http://getbootstrap.com/)
 * [Google Fonts](https://www.google.com/fonts)
-* [Font Awesome](http://fortawesome.github.io/Font-Awesome/icons/)
+* [Font Awesome Icons](http://fortawesome.github.io/Font-Awesome/icons/)
 
 ##Purpose
 
