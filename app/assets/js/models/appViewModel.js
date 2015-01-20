@@ -28,7 +28,7 @@ define(['jquery',
     self.searchQuery = ko.observable();
     self.isLoading = ko.observable(true);
     self.dirtyFlag = ko.observable(false);
-    self.currentRoute = ko.observable('');
+    self.currentRoute = ko.observable('initial');
 
 //End Model Variables *****************************
 
@@ -36,15 +36,16 @@ define(['jquery',
 
     self.selectedItem.subscribe(function(val) {
       if(val.favorite()) { //Check if clicked was a favorite. if so, remove it
-        self.removeLocalCopy(val.category_id,val);
+        self.removeLocalCopy(val.listing_id,val);
         return;
       }
-      self.storeLocalCopy(val.category_id,ko.toJSON(val),val); // When value is set (heart clicked), convert it to JSON and store locally
+      self.storeLocalCopy(val.listing_id,ko.toJSON(val),val); // When value is set (heart clicked), convert it to JSON and store locally
     })
 
     self.currentRoute.subscribe(function(val) {
       console.log(val);
       self.dirtyFlag(true); //If route has changed, set dirty flag
+      ApiOffset = 0;  //If route has changed, reset offset count
     })
 
 // End Subscriptions *******************************
@@ -138,6 +139,12 @@ define(['jquery',
       localStorage.removeItem(id); //Update local storage
     }
 
+    self.clearAllFavorites = function() {
+      self.etsyCollection.removeAll();
+      self.initialLoad(); //Back to start
+      localStorage.clear();
+    }
+
     self.lookForFavorites = function(update) {
       if (!update) { //Load favorites
         var returnArray = {
@@ -168,7 +175,7 @@ define(['jquery',
 
 var EtsyItem = function(item,ko) { //Constructor for each Item Card
   var self = this;
-  self.category_id = item.category_id;
+  self.listing_id = item.listing_id;
   self.description = item.description;
   self.title = item.title;
   self.price = item.price;
@@ -176,7 +183,7 @@ var EtsyItem = function(item,ko) { //Constructor for each Item Card
   self.favorite = ko.observable(false);
   self.image_url = item.image_url ? item.image_url : item.Images[0].url_570xN; //TODO: Array of all image sizes?
   self.favToggle = function() {
-    FavKeys.hasOwnProperty(self.category_id) ? self.favorite(true) : self.favorite(false);
+    FavKeys.hasOwnProperty(self.listing_id) ? self.favorite(true) : self.favorite(false);
   }
   self.navToItem = function() {
     window.open(self.url, '_blank');

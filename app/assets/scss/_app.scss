@@ -42,6 +42,14 @@ body {
 	font-family: "Cabin Condensed", sans-serif;
 }
 
+.delete_favs {
+  color: #F2665D;
+  cursor: pointer;
+  &:hover {
+    font-weight: bold;
+  }
+}
+
 .loader_div {
 	height:100%;
 	font-size: 25px;

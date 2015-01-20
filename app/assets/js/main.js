@@ -18,7 +18,7 @@ define(['jquery',
 	});
 
 	$(window).scroll(function(e) {  //Function to load more data when user scrolls to bottom of screen
-	    if($(window).scrollTop() == $(document).height() - $(window).height()) {
+	    if( $(window).scrollTop() >= ($(document).height() - ($(window).height() + 50)) ) { //Offset for sooner loading
 	    	if(!WindowIsScrolling) {
 	    		WindowIsScrolling = true;
 		    	var route = UI.currentRoute(),
